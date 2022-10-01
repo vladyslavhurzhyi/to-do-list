@@ -46,14 +46,13 @@ function init() {
 
 function addMarkup(markup) {
   listRef.insertAdjacentHTML('beforeend', markup);
+
+  const checkboxRef = document.querySelectorAll('.checkbox');
+  checkboxRef.forEach(item => {
+    item.addEventListener('change', () => {
+      item.nextSibling.classList.toggle('done');
+    });
+  });
 }
 
 init();
-
-const checkboxRef = document.querySelectorAll('.checkbox');
-
-checkboxRef.forEach(item => {
-  item.addEventListener('change', () => {
-    item.nextSibling.classList.toggle('done');
-  });
-});
