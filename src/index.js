@@ -46,13 +46,25 @@ function init() {
 
 function addMarkup(markup) {
   listRef.insertAdjacentHTML('beforeend', markup);
-
-  const checkboxRef = document.querySelectorAll('.checkbox');
-  checkboxRef.forEach(item => {
-    item.addEventListener('change', () => {
-      item.nextSibling.classList.toggle('done');
-    });
-  });
 }
 
 init();
+
+listRef.addEventListener('change', event => {
+  if (event.target.classList.contains('checkbox')) {
+    event.target.nextElementSibling.classList.toggle('done');
+
+    const liRef = event.target.closest('.item');
+
+    let idTask = liRef.dataset.id;
+    const dataOld = JSON.parse(localStorage.getItem('message'));
+
+    const index = dataOld.map((item, index) => {
+      if (item.id == idTask) {
+        dataOld[index].checked = true;
+        const newData = dataOld.filter(({ checked }) => checked === false);
+        saveData(newData);
+      }
+    });
+  }
+});
