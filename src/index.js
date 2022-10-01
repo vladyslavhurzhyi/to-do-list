@@ -1,12 +1,12 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/style.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/style.css';
 
-import { formRef, listRef } from "./refs";
-import { saveMessage, getMessage, saveData } from "./service";
-import { createData } from "./utils";
-import { createMarkup } from "./markup";
+import { formRef, listRef } from './refs';
+import { saveMessage, getMessage, saveData } from './service';
+import { createData } from './utils';
+import { createMarkup } from './markup';
 
-formRef.addEventListener("submit", (event) => {
+formRef.addEventListener('submit', event => {
   event.preventDefault();
 
   const {
@@ -24,12 +24,12 @@ formRef.addEventListener("submit", (event) => {
   formRef.reset();
 });
 
-listRef.addEventListener("click", (event) => {
+listRef.addEventListener('click', event => {
   //console.log(event.target.tagName);
-  if (event.target.tagName === "BUTTON") {
+  if (event.target.tagName === 'BUTTON') {
     //console.log(event.target.parentNode.dataset.id);
     //console.log(event.target.closest(".item").dataset.id);
-    const liRef = event.target.closest(".item");
+    const liRef = event.target.closest('.item');
     const dataAttr = liRef.dataset.id;
     liRef.remove();
     const data = getMessage();
@@ -45,7 +45,15 @@ function init() {
 }
 
 function addMarkup(markup) {
-  listRef.insertAdjacentHTML("beforeend", markup);
+  listRef.insertAdjacentHTML('beforeend', markup);
 }
 
 init();
+
+const checkboxRef = document.querySelectorAll('.checkbox');
+
+checkboxRef.forEach(item => {
+  item.addEventListener('change', () => {
+    item.nextSibling.classList.toggle('done');
+  });
+});
